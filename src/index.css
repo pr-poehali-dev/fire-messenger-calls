@@ -6,76 +6,73 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
-
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-
     --radius: 0.5rem;
-
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* FIRE Game Theme */
+    --fire-bg: #060a0f;
+    --fire-surface: #0d1520;
+    --fire-surface-2: #111d2e;
+    --fire-border: #1a2d45;
+    --fire-border-glow: #ff4500;
+    --fire-orange: #ff4500;
+    --fire-orange-dim: #cc3700;
+    --fire-red: #ff1a1a;
+    --fire-amber: #ffaa00;
+    --fire-cyan: #00d4ff;
+    --fire-text: #e8f4ff;
+    --fire-text-dim: #7a9ab8;
+    --fire-text-muted: #3d5a78;
+    --fire-online: #00ff88;
+    --fire-offline: #3d5a78;
+    --fire-danger: #ff3333;
+    --fire-vip: #ffd700;
+    --fire-admin: #ff4500;
+    --fire-mod: #00aaff;
+    --fire-creator: #ff00aa;
   }
 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
@@ -97,5 +94,581 @@
 
   body {
     @apply bg-background text-foreground;
+    background-color: var(--fire-bg);
+    color: var(--fire-text);
+    font-family: "Exo 2", sans-serif;
+    overflow: hidden;
   }
+}
+
+/* ===== FIRE GAME STYLES ===== */
+
+.fire-app {
+  background-color: var(--fire-bg);
+  color: var(--fire-text);
+  font-family: "Exo 2", sans-serif;
+  height: 100dvh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Animated bg grid */
+.fire-grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 69, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 69, 0, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.fire-grid-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    rgba(255, 69, 0, 0.06) 0%,
+    transparent 70%
+  );
+}
+
+/* Scanline effect */
+.fire-scanlines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Sidebar */
+.fire-sidebar {
+  background: var(--fire-surface);
+  border-right: 1px solid var(--fire-border);
+  position: relative;
+  z-index: 10;
+}
+
+.fire-sidebar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -1px;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--fire-orange),
+    transparent
+  );
+  opacity: 0.4;
+}
+
+/* Nav item */
+.fire-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--fire-text-dim);
+  position: relative;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 500;
+}
+
+.fire-nav-item:hover {
+  background: rgba(255, 69, 0, 0.08);
+  color: var(--fire-text);
+}
+
+.fire-nav-item.active {
+  background: rgba(255, 69, 0, 0.12);
+  color: var(--fire-orange);
+}
+
+.fire-nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 3px;
+  background: var(--fire-orange);
+  border-radius: 0 3px 3px 0;
+  box-shadow: 0 0 8px var(--fire-orange);
+}
+
+/* Buttons */
+.fire-btn {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 6px;
+  border: 1px solid var(--fire-orange);
+  background: transparent;
+  color: var(--fire-orange);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.fire-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--fire-orange);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.fire-btn:hover::before {
+  opacity: 0.12;
+}
+.fire-btn:hover {
+  box-shadow: 0 0 16px rgba(255, 69, 0, 0.4);
+}
+
+.fire-btn-primary {
+  background: var(--fire-orange);
+  color: #fff;
+  border-color: var(--fire-orange);
+}
+
+.fire-btn-primary::before {
+  background: #fff;
+}
+.fire-btn-primary:hover {
+  box-shadow: 0 0 24px rgba(255, 69, 0, 0.6);
+}
+
+.fire-btn-danger {
+  border-color: var(--fire-red);
+  color: var(--fire-red);
+}
+.fire-btn-danger:hover {
+  box-shadow: 0 0 16px rgba(255, 26, 26, 0.4);
+}
+
+.fire-btn-call {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+/* Input */
+.fire-input {
+  background: var(--fire-surface-2);
+  border: 1px solid var(--fire-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--fire-text);
+  font-family: "Exo 2", sans-serif;
+  font-size: 14px;
+  width: 100%;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  outline: none;
+}
+
+.fire-input:focus {
+  border-color: var(--fire-orange);
+  box-shadow: 0 0 0 2px rgba(255, 69, 0, 0.15);
+}
+
+.fire-input::placeholder {
+  color: var(--fire-text-muted);
+}
+
+/* Card */
+.fire-card {
+  background: var(--fire-surface);
+  border: 1px solid var(--fire-border);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.fire-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 69, 0, 0.4),
+    transparent
+  );
+}
+
+/* Logo */
+.fire-logo {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 4px;
+  background: linear-gradient(
+    135deg,
+    var(--fire-orange),
+    var(--fire-red),
+    var(--fire-amber)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 0 12px rgba(255, 69, 0, 0.5));
+}
+
+/* Avatar */
+.fire-avatar {
+  border-radius: 50%;
+  border: 2px solid var(--fire-border);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  background: var(--fire-surface-2);
+  color: var(--fire-text-dim);
+  flex-shrink: 0;
+}
+
+.fire-avatar.online::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--fire-online);
+  border: 2px solid var(--fire-bg);
+  box-shadow: 0 0 6px var(--fire-online);
+}
+
+/* Role badges */
+.fire-role {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.fire-role-creator {
+  background: rgba(255, 0, 170, 0.2);
+  color: var(--fire-creator);
+  border: 1px solid rgba(255, 0, 170, 0.4);
+}
+.fire-role-vip {
+  background: rgba(255, 215, 0, 0.2);
+  color: var(--fire-vip);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+.fire-role-admin {
+  background: rgba(255, 69, 0, 0.2);
+  color: var(--fire-admin);
+  border: 1px solid rgba(255, 69, 0, 0.4);
+}
+.fire-role-mod {
+  background: rgba(0, 170, 255, 0.2);
+  color: var(--fire-mod);
+  border: 1px solid rgba(0, 170, 255, 0.4);
+}
+
+/* Message bubble */
+.fire-msg {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--fire-surface-2);
+  border: 1px solid var(--fire-border);
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 72%;
+  position: relative;
+}
+
+.fire-msg.mine {
+  background: rgba(255, 69, 0, 0.12);
+  border-color: rgba(255, 69, 0, 0.25);
+  margin-left: auto;
+}
+
+/* Animations */
+@keyframes fire-glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(255, 69, 0, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(255, 69, 0, 0.7),
+      0 0 40px rgba(255, 69, 0, 0.3);
+  }
+}
+
+@keyframes fire-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fire-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fire-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fire-ring-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes fire-bars {
+  0%,
+  100% {
+    height: 6px;
+  }
+  50% {
+    height: 20px;
+  }
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-80px) translateX(20px);
+    opacity: 0;
+  }
+}
+
+.animate-fire-glow {
+  animation: fire-glow-pulse 2s infinite;
+}
+.animate-fire-in {
+  animation: fire-fade-in 0.35s ease forwards;
+}
+.animate-fire-slide {
+  animation: fire-slide-left 0.3s ease forwards;
+}
+.animate-spin-slow {
+  animation: fire-spin-slow 8s linear infinite;
+}
+
+/* Calling ring */
+.calling-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--fire-online);
+  animation: fire-ring-pulse 1.5s ease-out infinite;
+}
+
+/* Voice bars */
+.voice-bar {
+  width: 3px;
+  border-radius: 3px;
+  background: var(--fire-online);
+}
+
+.voice-bar:nth-child(1) {
+  animation: fire-bars 0.8s ease-in-out infinite;
+}
+.voice-bar:nth-child(2) {
+  animation: fire-bars 0.8s ease-in-out infinite 0.15s;
+}
+.voice-bar:nth-child(3) {
+  animation: fire-bars 0.8s ease-in-out infinite 0.3s;
+}
+.voice-bar:nth-child(4) {
+  animation: fire-bars 0.8s ease-in-out infinite 0.45s;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--fire-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--fire-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fire-orange);
+}
+
+/* Auth screen */
+.fire-auth-bg {
+  background:
+    radial-gradient(
+      ellipse 70% 70% at 50% 0%,
+      rgba(255, 69, 0, 0.1) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 50% 50% at 80% 80%,
+      rgba(0, 212, 255, 0.05) 0%,
+      transparent 60%
+    ),
+    var(--fire-bg);
+}
+
+/* Particles */
+.fire-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--fire-orange);
+  animation: float-particle linear infinite;
+}
+
+/* Channel member row */
+.fire-member-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.fire-member-row:hover {
+  background: rgba(255, 69, 0, 0.05);
+}
+
+/* Divider */
+.fire-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--fire-border),
+    transparent
+  );
+  margin: 4px 0;
+}
+
+/* Tab active underline */
+.fire-tab {
+  padding: 8px 16px;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--fire-text-dim);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+.fire-tab.active {
+  color: var(--fire-orange);
+  border-bottom-color: var(--fire-orange);
+}
+
+/* Notification badge */
+.fire-badge {
+  background: var(--fire-orange);
+  color: #fff;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 5px;
+  font-family: "Rajdhani", sans-serif;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* Main content area */
+.fire-main {
+  background: var(--fire-bg);
+  position: relative;
+  z-index: 5;
+}
+
+/* Panel */
+.fire-panel {
+  background: var(--fire-surface);
+  border-right: 1px solid var(--fire-border);
+  position: relative;
+  z-index: 8;
+}
+
+/* Mono text */
+.fire-mono {
+  font-family: "Share Tech Mono", monospace;
+}
+
+/* Glow text */
+.fire-glow-text {
+  text-shadow: 0 0 8px currentColor;
+}
+
+/* Call overlay */
+.fire-call-overlay {
+  background: rgba(6, 10, 15, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--fire-border);
 }
