@@ -1,0 +1,10 @@
+{
+  "tests": [
+    {
+      "name": "Get channels (no auth)",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 401
+    }
+  ]
+}

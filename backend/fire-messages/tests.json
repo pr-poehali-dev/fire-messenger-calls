@@ -1,0 +1,10 @@
+{
+  "tests": [
+    {
+      "name": "Get chats (no auth)",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 401
+    }
+  ]
+}

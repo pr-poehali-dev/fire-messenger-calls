@@ -1,0 +1,10 @@
+{
+  "tests": [
+    {
+      "name": "Health check - not found",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 404
+    }
+  ]
+}
